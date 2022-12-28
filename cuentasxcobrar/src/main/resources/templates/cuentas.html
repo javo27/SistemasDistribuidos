@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/sockjs.min.js"></script>
+    <script type="text/javascript" src="/stomp.js"></script>
+    <script src="http://code.jquery.com/jquery-1.6.1.js "></script>
+    <script type="text/javascript" src="/app.js"></script>
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand ms-2" th:href="@{/orden}">FISI Utiles - MODULO: Cuentas por Cobrar</a>
+        </div>
+    </nav>
+    <header class="pb-5 pt-1 pe-5">
+        <div class="links d-flex justify-content-end navbar">
+            <a th:href="@{/cuentascobrar}">Inicio</a>
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+            </svg>
+            <a th:href="@{/cuentascobrar/lista}" class="list-group-item">Lista de Cuentas</a>
+        </div>
+    </header>
+    <div class="container vh-100">
+        <h3>Cuentas por cobrar <span>#</span> </h3>
+        <div >
+            <form action="" class="d-flex justify-content-around align-items-end mt-4">
+                <div class="w-75 pe-4">
+                    <label>Cliente</label>
+                    <select class="form-select cliente" aria-label="Default select example">
+                        <script th:inline="javascript">
+                            var data = [[${cuentas}]]
+                        </script>
+                        <option selected>Elija un cliente</option>
+                        <option th:each="cuenta : ${cuentas}" th:value="${cuentas.indexOf(cuenta)}" th:text="${cuenta.getCliente().getNombre()}"></option>
+                    </select>
+                </div>
+                <div class="w-75 pe-4">
+                    <label >Fecha</label>
+                    <select class="clientefechas form-select" aria-label="Default select example">
+                        <option selected>Elija una fecha</option>
+                        <!--<option th:each="fechas : ${cuentas}" th:value="${cuenta.getFecha()}" th:text="${cuenta.getCliente().getNombre()}"></option>-->
+                    </select>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary search">Buscar</button>
+                </div>
+            </form>
+        </div>
+        <div class="mt-4">
+            <h4 class="mb-4">Cuentas por cobrar:</h4>
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Factura Codigo</th>
+                    <th scope="col">Importe</th>
+                </tr>
+                </thead>
+                <tbody class="body">
+                <!--<tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@twitter</td>
+                </tr>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
