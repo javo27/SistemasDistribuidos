@@ -12,6 +12,7 @@ def consume():
     )
     for msg in consumidor:
         print("\n[*] Se ha recibido un mensaje del MODULO DE PROCESAMIENTO DE ORDENES")
+        print(msg.value)
         print("\n[*] Desempaquetando mensaje ... \n")
         mensaje = msg.value
         orden_lista = mensaje['lista']

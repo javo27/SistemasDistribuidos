@@ -36,14 +36,14 @@ public class Consumidor {
 
     public static void consumer()  throws InterruptedException {
 
-        String groupId = "nuevoGrupo";
-        String topic = "orden";
+        String groupId = "group_id";
+        String topic = "facturacion";
 
         OperacionBD operacionBD= new OperacionBD();
 
         Productor productor = new Productor();
 
-        log.info("alo");
+        //log.info("alo");
         //Crear consumidor propiedades
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
@@ -65,26 +65,28 @@ public class Consumidor {
             //sondear la data
 
             while(true){
-
-                log.info("Esperando");
+                System.out.println("Esperando");
+                //log.info("Esperando");
                 ConsumerRecords<String , String > records = consumer.poll(Duration.ofMillis(900));
 
                 for (ConsumerRecord<String, String> record : records) {
-                    log.info("Key: " + record.key() + ", Value: " + record.value());
-                    log.info("Partition: " + record.partition() + ", Offset:" + record.offset());
+                    System.out.println("Key: " + record.key() + ", Value: " + record.value());
+                    System.out.println("Partition: " + record.partition() + ", Offset:" + record.offset());
                     operacionBD.ActualizarBD(record);
                     productor.Producir(record.value());
                 }
 
             }
         }catch (WakeupException e){
+            System.out.println(e.getMessage());
             log.info("error de activacion");
 
         }catch (Exception e){
+            System.out.println(e.getMessage());
             log.error("Excepcion inesperada");
         }finally {
-            consumer.close(); // this will also commit the offsets if need be.
-            log.info("CERRANDO CONSUMIDOR");
+            //consumer.close(); // this will also commit the offsets if need be.
+            //log.info("CERRANDO CONSUMIDOR");
         }
 
 

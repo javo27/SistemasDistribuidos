@@ -13,7 +13,7 @@ public class ResultadoConsumer {
     SimpMessagingTemplate websocketTemplate;
     @KafkaListener(
             topics = "${topic.name.resultado}",
-            groupId = "group_id",
+            groupId = "groud_id",
             containerFactory = "confirmacionKafkaListenerContainerFactory"
     )
     public void consume(Confirmacion confirmacion) {

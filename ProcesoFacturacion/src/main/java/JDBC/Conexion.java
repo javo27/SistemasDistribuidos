@@ -8,7 +8,7 @@ public class Conexion {
 
     static Connection connection;
     static String username = "root";
-    static String password = "alan";
+    static String password = "toor";
     static String bd = "db_facturacion";
     static String url = "jdbc:mysql://localhost:3306/"+bd+"?serverTimezone=UTC";
 

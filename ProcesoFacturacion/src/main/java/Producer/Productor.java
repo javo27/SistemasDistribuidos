@@ -1,5 +1,6 @@
 package Producer;
 
+import Entidades.Orden;
 import com.google.gson.Gson;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -17,7 +18,7 @@ public class Productor {
 
 
     public  void Producir(String ordenEnviar) {
-        log.info("klklklk");
+
         //Crear productor propiedades
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
@@ -34,17 +35,18 @@ public class Productor {
 
 
         Gson gson = new Gson();
-
-        String json = gson.toJson(ordenEnviar);
+        Orden orden = gson.fromJson(ordenEnviar, Orden.class);
+        orden.setNumero("FA"+orden.getNumero());
+        String json = gson.toJson(orden);
 
         ProducerRecord<String,String  > producerRecord =
-                new ProducerRecord<>("facturacion",json);
+                new ProducerRecord<>("cuentas",json);
 
         //enviar data - asincronico
         producer.send(producerRecord);
 
         //vaciar y cerrar el productor - sincronico
-        producer.flush();
+        //producer.flush();
         producer.close();
         //
 

@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class OrdenProducer {
-    @Value("${topic.name.orden}")
-    private String topicName;
+    /*@Value("${topic.name.orden}")
+    private String topicName;*/
     private final KafkaTemplate<String, Orden> ordenkafkaTemplate;
 
     public void send(Orden orden){
-        ordenkafkaTemplate.send(topicName,orden);
+        ordenkafkaTemplate.send("orden",orden);
     }
 }
